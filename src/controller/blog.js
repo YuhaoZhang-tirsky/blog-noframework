@@ -1,33 +1,35 @@
 const getList = (author, keyword) => {
   return [
     {
-      id: 1,
-      title: 'title A',
-      content: 'content A',
-      createTime: 1546610491112,
-      author: 'yuhao'
-    },
-    {
-      id: 2,
-      title: 'title B',
-      content: 'content B',
-      createTime: 1546610492423,
-      author: 'yuhao'
+      author: author
     }
   ]
 }
 
 const getDetail = (id) => {
+}
+
+const newBlog = (blogData = {}) => {
+  
   return {
-    id: 1,
-    title: 'title A',
-    content: 'content A',
-    createTime: 1546610491112,
-    author: 'yuhao'
+    id: 3
   }
 }
 
+const updateBlog = (id, blogData = {}) => {
+  return true
+}
+
+const deleteBlog = (id) => {
+  return true
+}
+
+
+
 module.exports = {
   getList,
-  getDetail
+  getDetail,
+  newBlog,
+  updateBlog,
+  deleteBlog
 }
