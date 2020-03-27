@@ -36,7 +36,11 @@ const serverHandle = (req, res) => {
   const url = req.url
   req.path = url.split('?')[0]
 
+  //query
   req.query = querystring.parse(url.split('?')[1])
+
+  //cookie
+  
 
   getPostData(req).then(postData => {
     req.body = postData
@@ -59,13 +63,22 @@ const serverHandle = (req, res) => {
     //   return
     // }
 
-    const userData = handleUserRouter(req, res)
-    if (userData) {
-      res.end(
-        JSON.stringify(userData)
-      )
+    const userResult = handleUserRouter(req, res)
+    if (userResult) {
+      userResult.then(userData => {
+        res.end(
+          JSON.stringify(userData)
+        )
+      })
       return
     }
+    // const userData = handleUserRouter(req, res)
+    // if (userData) {
+    //   res.end(
+    //     JSON.stringify(userData)
+    //   )
+    //   return
+    // }
 
     res.writeHead(404, {"Content-type": 'text/plain'})
     res.write("404 NOT FOUND\n")
