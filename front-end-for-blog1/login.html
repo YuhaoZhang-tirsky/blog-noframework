@@ -23,8 +23,8 @@
       return $.ajax({
         type: 'post',
         url,
-        data: JSON.stringify,
-        contentType: "application/JSON"
+        data: JSON.stringify(data),
+        contentType: "application/json"
       })
     }
 
@@ -39,7 +39,7 @@
       post(url, data).then(res => {
         if(res.errno === 0) {
           //login successful
-          location.href = './admin/html'
+          location.href = './admin.html'
         } else {
           alert(res.message)
         }
