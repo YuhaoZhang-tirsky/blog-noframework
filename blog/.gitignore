@@ -11,6 +11,9 @@
 # production
 /build
 
+# log
+/logs
+
 #env
 API.js
 
