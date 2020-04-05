@@ -2,8 +2,8 @@ const { exec, escape } = require('../db/mysql')
 const xss = require('xss')
 
 const getList = (author, keyword) => {
-  author = escape(author)
-  keyword = escape('%'+keyword+'%')
+  author = escape(xss(author))
+  keyword = escape('%'+xss(keyword)+'%')
   let sql = `select * from blogs where 1=1 `
   if (author != "''") {
     sql += `and author=${author} `
@@ -24,13 +24,13 @@ const getDetail = (id) => {
 }
 
 const newBlog = (blogData = {}) => {
-  const title = blogData.title
-  const content = blogData.content
-  const author = blogData.author
+  const title = escape(xss(blogData.title))
+  const content = escape(xss(blogData.content))
+  const author = escape(xss(blogData.author))
   const createTime = Date.now()
   const sql = `
     insert into blogs (title, content, createtime, author) 
-    values ('${title}', '${content}',${createTime},'${author}')
+    values (${title}, ${content},${createTime},${author})
   `
   return exec(sql).then(insertData => {
     //console.log('insertData is ', insertData)
@@ -41,8 +41,8 @@ const newBlog = (blogData = {}) => {
 }
 
 const updateBlog = (id, blogData = {}) => {
-  const title = blogData.title
-  const content = blogData.content
+  const title = escape(xss(blogData.title))
+  const content = escape(xss(blogData.content))
 
   const sql = `
     update blogs set title='${title}', content='${content}' where id=${id}
@@ -61,7 +61,6 @@ const deleteBlog = (id, author) => {
   `
   return exec(sql).then(deleteData => {
     if(deleteData.affectedRows > 0) {
-      console.log(true)
       return true
     }
     return false
