@@ -118,12 +118,13 @@
         return
       }
       if (confirm('Are you sure you want to delete?')) {
-        const url = '/api/blog/del?id=' + $target.attr('data-id')
+        const url = '/api/blog/delete?id=' + $target.attr('data-id')
         post(url).then(res => {
           if (res.errno !== 0) {
             alert('delete error')
             return
           }
+          alert('delete succ')
           location.href = location.href
         })
       }

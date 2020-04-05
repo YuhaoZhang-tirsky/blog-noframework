@@ -1,4 +1,5 @@
 const { exec, escape } = require('../db/mysql') 
+const xss = require('xss')
 
 const getList = (author, keyword) => {
   author = escape(author)
@@ -47,7 +48,6 @@ const updateBlog = (id, blogData = {}) => {
     update blogs set title='${title}', content='${content}' where id=${id}
   `
   return exec(sql).then(updateData => {
-    console.log('updateData is', updateData)
     if(updateData.affectedRows > 0) {
       return true
     }
@@ -60,8 +60,8 @@ const deleteBlog = (id, author) => {
     delete from blogs where id='${id}' and author='${author}'
   `
   return exec(sql).then(deleteData => {
-    console.log('deleteData is', deleteData)
     if(deleteData.affectedRows > 0) {
+      console.log(true)
       return true
     }
     return false
