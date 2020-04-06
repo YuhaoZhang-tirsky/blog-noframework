@@ -14,8 +14,11 @@
 # log
 /logs
 
-#env
+# env
 API.js
+
+# cryp
+/src/utils/cryp.js
 
 # misc
 .DS_Store
